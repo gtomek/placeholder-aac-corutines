@@ -4,7 +4,9 @@ import android.app.Application
 import android.os.StrictMode
 import com.squareup.leakcanary.AndroidExcludedRefs
 import com.squareup.leakcanary.LeakCanary
+import org.koin.android.ext.android.startKoin
 import timber.log.Timber
+import uk.co.tomek.jsonplaceholderdemoapp.di.applicationModule
 
 /**
  * Main Application class.
@@ -19,6 +21,8 @@ class PlaceholderApplication : Application() {
             setupLeakCanary()
             enableStrictMode()
         }
+
+        startKoin(this, listOf(applicationModule))
     }
 
     private fun enableStrictMode() {

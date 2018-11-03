@@ -7,6 +7,7 @@ import com.squareup.leakcanary.LeakCanary
 import org.koin.android.ext.android.startKoin
 import timber.log.Timber
 import uk.co.tomek.jsonplaceholderdemoapp.di.applicationModule
+import uk.co.tomek.jsonplaceholderdemoapp.di.networkModule
 
 /**
  * Main Application class.
@@ -22,7 +23,7 @@ class PlaceholderApplication : Application() {
             enableStrictMode()
         }
 
-        startKoin(this, listOf(applicationModule))
+        startKoin(this, listOf(applicationModule, networkModule))
     }
 
     private fun enableStrictMode() {

@@ -1,6 +1,6 @@
 package uk.co.tomek.jsonplaceholderdemoapp.data.model
 
-data class CommentsResponse(
+data class Comment(
     val body: String,
     val email: String,
     val id: Int,

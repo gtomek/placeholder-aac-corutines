@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Json Placeholder Demo App</string>
+    <string name="content_desc_progress_bar">progress bar</string>
 </resources>

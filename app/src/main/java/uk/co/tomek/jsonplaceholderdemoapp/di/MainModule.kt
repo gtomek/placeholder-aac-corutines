@@ -8,6 +8,7 @@ import org.koin.dsl.module.Module
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import uk.co.tomek.jsonplaceholderdemoapp.data.MainRepository
 import uk.co.tomek.jsonplaceholderdemoapp.data.network.NetworkService
 import uk.co.tomek.jsonplaceholderdemoapp.ui.viewmodel.MainViewModel
 
@@ -16,6 +17,7 @@ import uk.co.tomek.jsonplaceholderdemoapp.ui.viewmodel.MainViewModel
  */
 val applicationModule : Module = module {
     viewModel { MainViewModel(get()) }
+    factory { MainRepository(get()) }
 }
 
 val networkModule : Module = module {

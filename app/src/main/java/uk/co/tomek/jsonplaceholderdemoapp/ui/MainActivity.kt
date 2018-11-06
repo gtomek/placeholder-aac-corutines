@@ -18,13 +18,15 @@ class MainActivity : AppCompatActivity() {
 
     private val mainViewModel: MainViewModel by viewModel()
 
+    private val resultsListAdapter = ResultsListAdapter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         recycler_view_results_list.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = ResultsListAdapter()
+            adapter = resultsListAdapter
         }
 
         mainViewModel.getLiveData().observe(this, Observer { viewState ->
@@ -46,6 +48,9 @@ class MainActivity : AppCompatActivity() {
             is MainViewState.Data -> {
                 recycler_view_results_list.visibility = View.VISIBLE
                 image_view_progress.visibility = View.GONE
+                state.postsResponse?.let {
+                    resultsListAdapter.posts = it
+                }
             }
             is MainViewState.Error -> {
                 recycler_view_results_list.visibility = View.GONE

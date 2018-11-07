@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_post.view.*
 import timber.log.Timber
 import uk.co.tomek.jsonplaceholderdemoapp.R
-import uk.co.tomek.jsonplaceholderdemoapp.data.model.Post
+import uk.co.tomek.jsonplaceholderdemoapp.ui.model.PostItemModel
 
 class ResultsListAdapter : RecyclerView.Adapter<ResultsListAdapter.ListItemViewHolder>() {
 
-    var posts = listOf<Post>()
+    var posts = listOf<PostItemModel>()
         set(value) {
             field = value
             Timber.v("Set new posts :$value")
@@ -30,11 +30,11 @@ class ResultsListAdapter : RecyclerView.Adapter<ResultsListAdapter.ListItemViewH
     }
 
     class ListItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(post: Post) {
-            itemView.text_view_post_title.text = post.title
-            itemView.text_view_post_body.text = post.body
-            // TODO: Finish name and count
-            itemView.text_view_user_name.text = post.userId.toString()
+        fun bind(post: PostItemModel) {
+            itemView.text_view_post_title.text = post.title.capitalize()
+            itemView.text_view_post_body.text = post.body.capitalize()
+            itemView.text_view_user_name.text = post.user.capitalize()
+            itemView.text_view_counter.text = post.commentsCount.toString()
         }
     }
 }

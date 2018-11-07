@@ -45,10 +45,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 recycler_view_results_list.visibility = View.GONE
             }
-            is MainViewState.Data -> {
+            is MainViewState.DataState -> {
                 recycler_view_results_list.visibility = View.VISIBLE
                 image_view_progress.visibility = View.GONE
-                state.postsResponse?.let {
+                state.postsResponse.let {
                     resultsListAdapter.posts = it
                 }
             }

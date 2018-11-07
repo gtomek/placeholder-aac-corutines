@@ -1,9 +1,5 @@
 package uk.co.tomek.jsonplaceholderdemoapp.data
 
-import androidx.lifecycle.MutableLiveData
-import uk.co.tomek.jsonplaceholderdemoapp.data.model.Comment
-import uk.co.tomek.jsonplaceholderdemoapp.data.model.Post
-import uk.co.tomek.jsonplaceholderdemoapp.data.model.User
 import uk.co.tomek.jsonplaceholderdemoapp.data.network.NetworkService
 
 /**
@@ -11,30 +7,11 @@ import uk.co.tomek.jsonplaceholderdemoapp.data.network.NetworkService
  * following suggestions from
  * https://medium.com/androiddevelopers/livedata-beyond-the-viewmodel-reactive-patterns-using-transformations-and-mediatorlivedata-fda520ba00b7
  */
-class MainRepository(val networkService: NetworkService) {
+class MainRepository(private val networkService: NetworkService) : Repostitory {
 
-    val postsLiveData: MutableLiveData<List<Post>> = MutableLiveData()
-    val commentsLiveData: MutableLiveData<List<Comment>> = MutableLiveData()
-    val usersLiveData: MutableLiveData<List<User>> = MutableLiveData()
+    override suspend fun fetchPosts() = networkService.getPosts().await()
 
-    suspend fun fetchAll() {
-        fetchPosts()
-        fetchComments()
-        fetchUsers()
-    }
+    override suspend fun fetchComments() = networkService.getComments().await()
 
-    private suspend fun fetchPosts() {
-        val postsResult = networkService.getPosts().await()
-        postsLiveData.postValue(postsResult)
-    }
-
-    private suspend fun fetchComments() {
-        val commentsResult = networkService.getComments().await()
-        commentsLiveData.postValue(commentsResult)
-    }
-
-    private suspend fun fetchUsers() {
-        val usersResult = networkService.getUsers().await()
-        usersLiveData.postValue(usersResult)
-    }
+    override suspend fun fetchUsers() = networkService.getUsers().await()
 }

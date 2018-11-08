@@ -18,12 +18,13 @@ class MainActivity : AppCompatActivity() {
 
     private val mainViewModel: MainViewModel by viewModel()
 
-    private val resultsListAdapter = ResultsListAdapter()
+    private lateinit var resultsListAdapter : ResultsListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        resultsListAdapter = ResultsListAdapter(mainViewModel)
         recycler_view_results_list.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = resultsListAdapter

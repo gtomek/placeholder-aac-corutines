@@ -33,7 +33,7 @@ class MainInteractor(private val repository: Repostitory) {
                         .filter { it.id == post.userId }
                         .map { user ->
                             user.name
-                        }.first(),
+                        }.firstOrNull() ?: "",
                     comments
                         .filter { it.postId == post.id }
                         .toList()

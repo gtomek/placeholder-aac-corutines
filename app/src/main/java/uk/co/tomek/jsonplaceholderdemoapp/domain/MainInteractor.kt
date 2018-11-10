@@ -1,5 +1,8 @@
 package uk.co.tomek.jsonplaceholderdemoapp.domain
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import timber.log.Timber
 import uk.co.tomek.jsonplaceholderdemoapp.data.Repostitory
 import uk.co.tomek.jsonplaceholderdemoapp.data.model.Comment
@@ -14,11 +17,12 @@ class MainInteractor(private val repository: Repostitory) {
 
     suspend fun fetchAll(): List<PostItemModel> {
         try {
-            val posts = repository.fetchPosts()
-            val comments = repository.fetchComments()
-            val users = repository.fetchUsers()
+            // launch 3 network calls in parallel
+            val posts = CoroutineScope(Dispatchers.IO).async {(repository.fetchPosts())}
+            val comments = CoroutineScope(Dispatchers.IO).async {repository.fetchComments()}
+            val users = CoroutineScope(Dispatchers.IO).async {repository.fetchUsers()}
 
-            return mapToPostItems(posts, users, comments)
+            return mapToPostItems(posts.await(), users.await(), comments.await())
         } catch (exception : Exception) {
             Timber.e(exception)
             // TODO: Return an error state

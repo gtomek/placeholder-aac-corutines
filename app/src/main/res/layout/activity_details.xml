@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:padding="@dimen/gap_medium"
+>
+
+    <TextView
+            android:id="@+id/text_view_post_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/gap_small"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/text_view_user_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Post Title Could be login or not so long long long long long"
+    />
+
+    <TextView
+            android:id="@+id/text_view_user_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="User name"
+    />
+
+    <TextView
+            android:id="@+id/text_view_post_body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_small"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_post_title"
+            tools:text="Post Body Post Body Post Body Post Body Post BodyPost Body Post BodyPost Body Post BodyPost Body Post BodyPost Body Post BodyPost Body Post BodyPost Body Post BodyPost Body Post BodyPost Body Post Body"
+    />
+
+    <TextView
+            android:id="@+id/text_view_comments_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/gap_small"
+            android:gravity="center"
+            android:text="@string/comments"
+            android:padding="@dimen/gap_small"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_post_body"
+    />
+
+    <TextView
+            android:id="@+id/text_view_counter"
+            android:layout_width="@dimen/gap_large"
+            android:layout_height="@dimen/gap_large"
+            android:layout_marginTop="@dimen/gap_small"
+            android:background="@drawable/circle_shape"
+            android:gravity="center"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/text_view_comments_title"
+            app:layout_constraintTop_toBottomOf="@id/text_view_post_body"
+            tools:text="5"
+    />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

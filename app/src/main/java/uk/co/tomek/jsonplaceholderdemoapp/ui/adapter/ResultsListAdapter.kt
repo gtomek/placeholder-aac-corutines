@@ -35,10 +35,8 @@ class ResultsListAdapter(private val clickHandler: (PostItemModel) -> Unit) :
         private val clickHandler: (PostItemModel) -> Unit
     ) : RecyclerView.ViewHolder(itemView) {
         fun bind(post: PostItemModel) {
-            itemView.text_view_post_title.text = post.title.capitalize()
-            itemView.text_view_post_body.text = post.body.capitalize()
-            itemView.text_view_user_name.text = post.user.capitalize()
-            itemView.text_view_counter.text = post.commentsCount.toString()
+            itemView.text_view_list_post_title.text = post.title.capitalize()
+            itemView.text_view_list_user_name.text = post.user.capitalize()
             itemView.setOnClickListener { clickHandler(post) }
         }
     }

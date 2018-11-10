@@ -6,9 +6,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import uk.co.tomek.jsonplaceholderdemoapp.domain.MainInteractor
-import uk.co.tomek.jsonplaceholderdemoapp.ui.model.PostItemModel
 import uk.co.tomek.jsonplaceholderdemoapp.ui.viewstate.MainViewState
 
 /**
@@ -37,9 +35,5 @@ class MainViewModel(private val mainInteractor: MainInteractor) : ViewModel() {
     override fun onCleared() {
         job.cancel()
         super.onCleared()
-    }
-
-    fun itemClicked(post: PostItemModel) {
-        Timber.v("Post clicked $post")
     }
 }

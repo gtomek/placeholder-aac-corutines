@@ -1,5 +1,6 @@
 package uk.co.tomek.jsonplaceholderdemoapp.ui
 
+import android.content.Intent
 import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.view.View
@@ -24,7 +25,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        resultsListAdapter = ResultsListAdapter(mainViewModel)
+
+        resultsListAdapter = ResultsListAdapter { model ->
+            val launchIntent = Intent(this, DetailsActivity::class.java)
+            launchIntent.putExtra(DetailsActivity.KEY_POST_DETAILS, model)
+            startActivity(launchIntent)
+        }
         recycler_view_results_list.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = resultsListAdapter

@@ -8,9 +8,8 @@ import kotlinx.android.synthetic.main.item_post.view.*
 import timber.log.Timber
 import uk.co.tomek.jsonplaceholderdemoapp.R
 import uk.co.tomek.jsonplaceholderdemoapp.ui.model.PostItemModel
-import uk.co.tomek.jsonplaceholderdemoapp.ui.viewmodel.MainViewModel
 
-class ResultsListAdapter(private val mainViewModel: MainViewModel) :
+class ResultsListAdapter(private val clickHandler: (PostItemModel) -> Unit) :
     RecyclerView.Adapter<ResultsListAdapter.ListItemViewHolder>() {
 
     var posts = listOf<PostItemModel>()
@@ -22,7 +21,7 @@ class ResultsListAdapter(private val mainViewModel: MainViewModel) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListItemViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_post, parent, false)
-        return ListItemViewHolder(view, mainViewModel)
+        return ListItemViewHolder(view, clickHandler)
     }
 
     override fun getItemCount(): Int = posts.size
@@ -33,14 +32,14 @@ class ResultsListAdapter(private val mainViewModel: MainViewModel) :
 
     class ListItemViewHolder(
         itemView: View,
-        private val mainViewModel: MainViewModel
+        private val clickHandler: (PostItemModel) -> Unit
     ) : RecyclerView.ViewHolder(itemView) {
         fun bind(post: PostItemModel) {
             itemView.text_view_post_title.text = post.title.capitalize()
             itemView.text_view_post_body.text = post.body.capitalize()
             itemView.text_view_user_name.text = post.user.capitalize()
             itemView.text_view_counter.text = post.commentsCount.toString()
-            itemView.setOnClickListener { mainViewModel.itemClicked(post) }
+            itemView.setOnClickListener { clickHandler(post) }
         }
     }
 }

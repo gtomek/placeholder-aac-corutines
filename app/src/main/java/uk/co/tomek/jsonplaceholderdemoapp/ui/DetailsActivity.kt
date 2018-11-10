@@ -11,6 +11,11 @@ class DetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
+        setSupportActionBar(toolbar_detalils)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+        }
 
         intent?.getParcelableExtra<PostItemModel>(KEY_POST_DETAILS)?.let {
             bindPost(it)
@@ -22,6 +27,11 @@ class DetailsActivity : AppCompatActivity() {
         text_view_post_body.text = post.body.capitalize()
         text_view_user_name.text = post.user.capitalize()
         text_view_counter.text = post.commentsCount.toString()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     companion object {

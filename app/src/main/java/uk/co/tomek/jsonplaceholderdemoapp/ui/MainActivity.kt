@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                 recycler_view_results_list.visibility = View.GONE
                 layout_error_main.visibility = View.GONE
             }
-            is MainViewState.DataState -> {
+            is MainViewState.Data -> {
                 recycler_view_results_list.visibility = View.VISIBLE
                 image_view_progress.visibility = View.GONE
                 layout_error_main.visibility = View.GONE
@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity() {
                 recycler_view_results_list.visibility = View.GONE
                 image_view_progress.visibility = View.GONE
                 layout_error_main.visibility = View.VISIBLE
+                Timber.e(state.throwable, state.message)
             }
         }
     }

@@ -9,25 +9,23 @@ import uk.co.tomek.jsonplaceholderdemoapp.data.model.Comment
 import uk.co.tomek.jsonplaceholderdemoapp.data.model.Post
 import uk.co.tomek.jsonplaceholderdemoapp.data.model.User
 import uk.co.tomek.jsonplaceholderdemoapp.ui.model.PostItemModel
+import uk.co.tomek.jsonplaceholderdemoapp.ui.viewstate.MainViewState
 
 /**
  * Iterator between the repository and UI layer.
  */
-class MainInteractor(private val repository: Repostitory) : Interactor<List<PostItemModel>> {
+class MainInteractor(private val repository: Repostitory) : Interactor<MainViewState> {
 
-    override suspend fun fetchData(): List<PostItemModel> {
-        try {
+    override suspend fun fetchData(): MainViewState {
+        return try {
             // launch 3 network calls in parallel
             val posts = CoroutineScope(Dispatchers.IO).async {(repository.fetchPosts())}
             val comments = CoroutineScope(Dispatchers.IO).async {repository.fetchComments()}
             val users = CoroutineScope(Dispatchers.IO).async {repository.fetchUsers()}
-
-            return mapToPostItems(posts.await(), users.await(), comments.await())
+            MainViewState.Data(mapToPostItems(posts.await(), users.await(), comments.await()))
         } catch (exception : Exception) {
-            Timber.e(exception)
-            // TODO: Return an error state
+            MainViewState.Error(exception, "Fetching main data has failed")
         }
-        return emptyList()
     }
 
     private fun mapToPostItems(

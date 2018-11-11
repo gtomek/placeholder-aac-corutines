@@ -8,5 +8,5 @@ import uk.co.tomek.jsonplaceholderdemoapp.ui.model.PostItemModel
 sealed class MainViewState {
     object Loading : MainViewState()
     data class Error(val throwable: Throwable? = null, val message: String? = null) : MainViewState()
-    data class DataState(val postsResponse: List<PostItemModel>) : MainViewState()
+    data class Data(val postsResponse: List<PostItemModel>) : MainViewState()
 }

@@ -13,8 +13,8 @@ import uk.co.tomek.jsonplaceholderdemoapp.data.Repostitory
 import uk.co.tomek.jsonplaceholderdemoapp.data.network.NetworkService
 import uk.co.tomek.jsonplaceholderdemoapp.domain.Interactor
 import uk.co.tomek.jsonplaceholderdemoapp.domain.MainInteractor
-import uk.co.tomek.jsonplaceholderdemoapp.ui.model.PostItemModel
 import uk.co.tomek.jsonplaceholderdemoapp.ui.viewmodel.MainViewModel
+import uk.co.tomek.jsonplaceholderdemoapp.ui.viewstate.MainViewState
 
 /**
  * KOIN modules declarations.
@@ -22,7 +22,7 @@ import uk.co.tomek.jsonplaceholderdemoapp.ui.viewmodel.MainViewModel
 val applicationModule : Module = module {
     viewModel { MainViewModel(get()) }
     factory<Repostitory> { MainRepository(get()) }
-    factory<Interactor<List<PostItemModel>>> { MainInteractor(get()) }
+    factory<Interactor<MainViewState>> { MainInteractor(get()) }
 }
 
 val networkModule : Module = module {

@@ -12,6 +12,7 @@ import org.mockito.junit.MockitoJUnitRunner
 import uk.co.tomek.jsonplaceholderdemoapp.data.Repostitory
 import uk.co.tomek.jsonplaceholderdemoapp.data.model.*
 import uk.co.tomek.jsonplaceholderdemoapp.ui.model.PostItemModel
+import uk.co.tomek.jsonplaceholderdemoapp.ui.viewstate.MainViewState
 
 @RunWith(MockitoJUnitRunner::class)
 class MainInteractorTest {
@@ -32,6 +33,7 @@ class MainInteractorTest {
         val commentsList = listOf<Comment>()
         val postsList = listOf<Post>()
         val usersList = listOf<User>()
+        val expected = MainViewState.Data(emptyList())
 
         // when
         runBlocking { whenever(repostitory.fetchComments()) }.thenReturn(commentsList)
@@ -40,7 +42,7 @@ class MainInteractorTest {
         val result = runBlocking { interactor.fetchData() }
 
         // then
-        assert(result.isEmpty())
+        assertEquals(expected, result)
     }
 
     @Test
@@ -59,7 +61,8 @@ class MainInteractorTest {
         val userName = "name"
         val user1 = User(address, company, "user@email.com", userId1, userName, "phone", "userName", "website")
         val usersList = listOf(user1)
-        val expectedResult = PostItemModel(postTitle, postBody, userName, commentsList.size)
+        val expectedItem = PostItemModel(postTitle, postBody, userName, commentsList.size)
+        val expected = MainViewState.Data(listOf(expectedItem))
 
         // when
         runBlocking { whenever(repostitory.fetchComments()) }.thenReturn(commentsList)
@@ -68,8 +71,7 @@ class MainInteractorTest {
         val result = runBlocking { interactor.fetchData() }
 
         // then
-        assert(result.size == 1)
-        assertEquals(expectedResult, result[0])
+        assertEquals(expected, result)
     }
 
     @Test
@@ -88,7 +90,8 @@ class MainInteractorTest {
         val userName = "name"
         val user1 = User(address, company, "user@email.com", id1, userName, "phone", "userName", "website")
         val usersList = listOf(user1)
-        val expectedResult = PostItemModel(postTitle, postBody, "", commentsList.size)
+        val expectedItem = PostItemModel(postTitle, postBody, "", commentsList.size)
+        val expected = MainViewState.Data(listOf(expectedItem))
 
         // when
         runBlocking { whenever(repostitory.fetchComments()) }.thenReturn(commentsList)
@@ -97,8 +100,7 @@ class MainInteractorTest {
         val result = runBlocking { interactor.fetchData() }
 
         // then
-        assert(result.size == 1)
-        assertEquals(expectedResult, result[0])
+        assertEquals(expected, result)
     }
 
     @Test
@@ -116,7 +118,9 @@ class MainInteractorTest {
         val userName = "name"
         val user1 = User(address, company, "user@email.com", userId1, userName, "phone", "userName", "website")
         val usersList = listOf(user1)
-        val expectedResult = PostItemModel(postTitle, postBody, userName, 0)
+        val expectedItem = PostItemModel(postTitle, postBody, userName, 0)
+        val expected = MainViewState.Data(listOf(expectedItem))
+
 
         // when
         runBlocking { whenever(repostitory.fetchComments()) }.thenReturn(commentsList)
@@ -125,7 +129,25 @@ class MainInteractorTest {
         val result = runBlocking { interactor.fetchData() }
 
         // then
-        assert(result.size == 1)
-        assertEquals(expectedResult, result[0])
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun verifyAnErrorIsPorpagetedWhenConnectionFails() {
+        // given
+        val commentsList = listOf<Comment>()
+        val postsList = listOf<Post>()
+        val expection = RuntimeException("an expection")
+        val expectionMessage = "Fetching main data has failed"
+        val expected = MainViewState.Error(expection, expectionMessage)
+
+        // when
+        runBlocking { whenever(repostitory.fetchComments()) }.thenReturn(commentsList)
+        runBlocking { whenever(repostitory.fetchPosts()) }.thenReturn(postsList)
+        runBlocking { whenever(repostitory.fetchUsers()) }.thenThrow(expection)
+        val result = runBlocking { interactor.fetchData() }
+
+        // then
+        assertEquals(expected, result)
     }
 }

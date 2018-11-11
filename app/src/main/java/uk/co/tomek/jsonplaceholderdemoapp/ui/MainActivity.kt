@@ -14,23 +14,21 @@ import timber.log.Timber
 import uk.co.tomek.jsonplaceholderdemoapp.R
 import uk.co.tomek.jsonplaceholderdemoapp.ui.adapter.ResultsListAdapter
 import uk.co.tomek.jsonplaceholderdemoapp.ui.viewmodel.MainViewModel
+import uk.co.tomek.jsonplaceholderdemoapp.ui.viewstate.MainViewSingleAction
 import uk.co.tomek.jsonplaceholderdemoapp.ui.viewstate.MainViewState
 
 class MainActivity : AppCompatActivity() {
 
     private val mainViewModel: MainViewModel by viewModel()
 
-    private lateinit var resultsListAdapter : ResultsListAdapter
+    private lateinit var resultsListAdapter: ResultsListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         resultsListAdapter = ResultsListAdapter { model ->
-            val launchIntent = Intent(this, DetailsActivity::class.java)
-            launchIntent.putExtra(DetailsActivity.KEY_POST_DETAILS, model)
-            startActivity(launchIntent)
+            mainViewModel.itemClicked(model)
         }
         recycler_view_results_list.apply {
             layoutManager = LinearLayoutManager(context)
@@ -38,13 +36,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         mainViewModel.getLiveData().observe(this, Observer { viewState ->
-            if (viewState != null) renderState(viewState)
+            viewState?.let { renderState(it) }
         })
-        mainViewModel.fetchData()
+
+        mainViewModel.getViewActions().observe(this, Observer { action ->
+            action?.let { actOnViewAction(it) }
+        })
 
         button_error_layout_try_again.setOnClickListener {
-            renderState(MainViewState.Loading)
-            mainViewModel.fetchData()
+            mainViewModel.retryButtonClicked()
         }
     }
 
@@ -72,6 +72,16 @@ class MainActivity : AppCompatActivity() {
                 image_view_progress.visibility = View.GONE
                 layout_error_main.visibility = View.VISIBLE
                 Timber.e(state.throwable, state.message)
+            }
+        }
+    }
+
+    private fun actOnViewAction(action: MainViewSingleAction) {
+        when (action) {
+            is MainViewSingleAction.ItemClicked -> {
+                val launchIntent = Intent(this@MainActivity, DetailsActivity::class.java)
+                launchIntent.putExtra(DetailsActivity.KEY_POST_DETAILS, action.postItemModel)
+                startActivity(launchIntent)
             }
         }
     }

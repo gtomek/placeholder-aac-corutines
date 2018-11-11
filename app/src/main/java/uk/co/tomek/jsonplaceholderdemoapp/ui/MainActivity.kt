@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_error.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import uk.co.tomek.jsonplaceholderdemoapp.R
@@ -40,10 +41,14 @@ class MainActivity : AppCompatActivity() {
             if (viewState != null) renderDataState(viewState)
         })
         mainViewModel.fetchData()
+
+        button_error_layout_try_again.setOnClickListener {
+            mainViewModel.fetchData()
+        }
     }
 
     private fun renderDataState(state: MainViewState) {
-        Timber.v("Render state $state")
+        Timber.v("Render state")
         when (state) {
             is MainViewState.Loading -> {
                 image_view_progress.apply {
@@ -51,8 +56,10 @@ class MainActivity : AppCompatActivity() {
                     (drawable as? Animatable)?.start()
                 }
                 recycler_view_results_list.visibility = View.GONE
+                layout_error_main.visibility = View.GONE
             }
             is MainViewState.DataState -> {
+                layout_error_main.visibility = View.VISIBLE
                 recycler_view_results_list.visibility = View.VISIBLE
                 image_view_progress.visibility = View.GONE
                 state.postsResponse.let {
@@ -62,7 +69,7 @@ class MainActivity : AppCompatActivity() {
             is MainViewState.Error -> {
                 recycler_view_results_list.visibility = View.GONE
                 image_view_progress.visibility = View.GONE
-                // TODO: Display some error
+                layout_error_main.visibility = View.VISIBLE
             }
         }
     }

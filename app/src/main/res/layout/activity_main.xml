@@ -1,29 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.MainActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.MainActivity">
 
     <ImageView
-            android:id="@+id/image_view_progress"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/gap_tiny"
-            android:contentDescription="@string/content_desc_progress_bar"
-            android:padding="@dimen/gap_small"
-            android:src="@drawable/ic_circles_animation"
-            tools:visibility="gone"
-    />
+        android:id="@+id/image_view_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/gap_tiny"
+        android:contentDescription="@string/content_desc_progress_bar"
+        android:padding="@dimen/gap_small"
+        android:src="@drawable/ic_circles_animation"
+        tools:visibility="gone"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_results_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            tools:visibility="visible"
-    />
+        android:id="@+id/recycler_view_results_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:itemCount="5"
+        tools:listitem="@layout/item_post"
+        tools:visibility="visible"
+        />
+
+    <include layout="@layout/layout_error"/>
 
 </FrameLayout>

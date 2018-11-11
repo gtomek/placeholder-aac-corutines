@@ -2,4 +2,6 @@
     <string name="app_name">Json Placeholder Demo App</string>
     <string name="content_desc_progress_bar">progress bar</string>
     <string name="comments">comments</string>
+    <string name="oops_something_went_wrong">Oops something went wrong...</string>
+    <string name="try_again">try again</string>
 </resources>

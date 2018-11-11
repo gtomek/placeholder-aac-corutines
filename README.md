@@ -18,3 +18,7 @@ Android demo project using Json Placeholder API
 - http://jsonplaceholder.typicode.com/users
 - http://jsonplaceholder.typicode.com/posts
 - http://jsonplaceholder.typicode.com/comments
+
+# TODO
+- add main activity UI test (maybe with Mock Web Server)
+- more testing

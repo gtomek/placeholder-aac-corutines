@@ -37,7 +37,7 @@ class MainInteractorTest {
         runBlocking { whenever(repostitory.fetchComments()) }.thenReturn(commentsList)
         runBlocking { whenever(repostitory.fetchPosts()) }.thenReturn(postsList)
         runBlocking { whenever(repostitory.fetchUsers()) }.thenReturn(usersList)
-        val result = runBlocking { interactor.fetchAll() }
+        val result = runBlocking { interactor.fetchData() }
 
         // then
         assert(result.isEmpty())
@@ -65,7 +65,7 @@ class MainInteractorTest {
         runBlocking { whenever(repostitory.fetchComments()) }.thenReturn(commentsList)
         runBlocking { whenever(repostitory.fetchPosts()) }.thenReturn(postsList)
         runBlocking { whenever(repostitory.fetchUsers()) }.thenReturn(usersList)
-        val result = runBlocking { interactor.fetchAll() }
+        val result = runBlocking { interactor.fetchData() }
 
         // then
         assert(result.size == 1)
@@ -94,7 +94,7 @@ class MainInteractorTest {
         runBlocking { whenever(repostitory.fetchComments()) }.thenReturn(commentsList)
         runBlocking { whenever(repostitory.fetchPosts()) }.thenReturn(postsList)
         runBlocking { whenever(repostitory.fetchUsers()) }.thenReturn(usersList)
-        val result = runBlocking { interactor.fetchAll() }
+        val result = runBlocking { interactor.fetchData() }
 
         // then
         assert(result.size == 1)
@@ -122,7 +122,7 @@ class MainInteractorTest {
         runBlocking { whenever(repostitory.fetchComments()) }.thenReturn(commentsList)
         runBlocking { whenever(repostitory.fetchPosts()) }.thenReturn(postsList)
         runBlocking { whenever(repostitory.fetchUsers()) }.thenReturn(usersList)
-        val result = runBlocking { interactor.fetchAll() }
+        val result = runBlocking { interactor.fetchData() }
 
         // then
         assert(result.size == 1)

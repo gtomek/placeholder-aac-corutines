@@ -6,13 +6,15 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import uk.co.tomek.jsonplaceholderdemoapp.domain.Interactor
 import uk.co.tomek.jsonplaceholderdemoapp.domain.MainInteractor
+import uk.co.tomek.jsonplaceholderdemoapp.ui.model.PostItemModel
 import uk.co.tomek.jsonplaceholderdemoapp.ui.viewstate.MainViewState
 
 /**
  * ViewModel for the main screen.
  */
-class MainViewModel(private val mainInteractor: MainInteractor) : ViewModel() {
+class MainViewModel(private val mainInteractor: Interactor<List<PostItemModel>>) : ViewModel() {
 
     private val mainLiveData: MediatorLiveData<MainViewState> = MediatorLiveData()
 
@@ -27,7 +29,7 @@ class MainViewModel(private val mainInteractor: MainInteractor) : ViewModel() {
 
     fun fetchData() {
         job = CoroutineScope(Dispatchers.IO).launch {
-            val postsItems = mainInteractor.fetchAll()
+            val postsItems = mainInteractor.fetchData()
             mainLiveData.postValue(MainViewState.DataState(postsItems))
         }
     }

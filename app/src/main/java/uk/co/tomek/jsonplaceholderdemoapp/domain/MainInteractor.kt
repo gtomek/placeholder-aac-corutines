@@ -13,9 +13,9 @@ import uk.co.tomek.jsonplaceholderdemoapp.ui.model.PostItemModel
 /**
  * Iterator between the repository and UI layer.
  */
-class MainInteractor(private val repository: Repostitory) {
+class MainInteractor(private val repository: Repostitory) : Interactor<List<PostItemModel>> {
 
-    suspend fun fetchAll(): List<PostItemModel> {
+    override suspend fun fetchData(): List<PostItemModel> {
         try {
             // launch 3 network calls in parallel
             val posts = CoroutineScope(Dispatchers.IO).async {(repository.fetchPosts())}

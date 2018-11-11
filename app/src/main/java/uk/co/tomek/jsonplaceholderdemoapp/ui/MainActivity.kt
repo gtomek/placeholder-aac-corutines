@@ -38,17 +38,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         mainViewModel.getLiveData().observe(this, Observer { viewState ->
-            if (viewState != null) renderDataState(viewState)
+            if (viewState != null) renderState(viewState)
         })
         mainViewModel.fetchData()
 
         button_error_layout_try_again.setOnClickListener {
+            renderState(MainViewState.Loading)
             mainViewModel.fetchData()
         }
     }
 
-    private fun renderDataState(state: MainViewState) {
-        Timber.v("Render state")
+    private fun renderState(state: MainViewState) {
+        Timber.v("Render state ${state::class.java}")
         when (state) {
             is MainViewState.Loading -> {
                 image_view_progress.apply {
@@ -59,9 +60,9 @@ class MainActivity : AppCompatActivity() {
                 layout_error_main.visibility = View.GONE
             }
             is MainViewState.DataState -> {
-                layout_error_main.visibility = View.VISIBLE
                 recycler_view_results_list.visibility = View.VISIBLE
                 image_view_progress.visibility = View.GONE
+                layout_error_main.visibility = View.GONE
                 state.postsResponse.let {
                     resultsListAdapter.posts = it
                 }

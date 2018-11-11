@@ -15,7 +15,7 @@ class ResultsListAdapter(private val clickHandler: (PostItemModel) -> Unit) :
     var posts = listOf<PostItemModel>()
         set(value) {
             field = value
-            Timber.v("Set new posts :$value")
+            Timber.v("Set new posts :${value.size} items")
             notifyDataSetChanged()
         }
 

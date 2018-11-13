@@ -1,6 +1,6 @@
 package uk.co.tomek.jsonplaceholderdemoapp.ui.viewmodel
 
-import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +17,7 @@ import uk.co.tomek.jsonplaceholderdemoapp.ui.viewstate.MainViewState
  */
 class MainViewModel(private val mainInteractor: Interactor<MainViewState>) : ViewModel() {
 
-    private val mainLiveData: MediatorLiveData<MainViewState> = MediatorLiveData()
+    private val mainLiveData = MutableLiveData<MainViewState>()
 
     // using it to open details screen
     // as recommended e.g. in

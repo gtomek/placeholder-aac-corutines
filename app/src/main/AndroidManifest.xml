@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-            android:name=".PlaceholderApplication"
+            android:name=".core.PlaceholderApplication"
             android:allowBackup="true"
             android:fullBackupContent="true"
             android:icon="@mipmap/ic_launcher"
@@ -15,9 +15,9 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.DetailsActivity">
+        <activity android:name=".mainmodule.presentation.DetailsActivity">
         </activity>
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".mainmodule.presentation.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

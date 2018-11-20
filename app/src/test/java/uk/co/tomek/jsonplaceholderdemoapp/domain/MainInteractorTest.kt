@@ -9,10 +9,12 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
-import uk.co.tomek.jsonplaceholderdemoapp.data.Repostitory
+import uk.co.tomek.jsonplaceholderdemoapp.mainmodule.data.Repostitory
 import uk.co.tomek.jsonplaceholderdemoapp.data.model.*
-import uk.co.tomek.jsonplaceholderdemoapp.ui.model.PostItemModel
-import uk.co.tomek.jsonplaceholderdemoapp.ui.viewstate.MainViewState
+import uk.co.tomek.jsonplaceholderdemoapp.mainmodule.data.model.*
+import uk.co.tomek.jsonplaceholderdemoapp.mainmodule.domain.MainInteractor
+import uk.co.tomek.jsonplaceholderdemoapp.mainmodule.presentation.model.PostItemModel
+import uk.co.tomek.jsonplaceholderdemoapp.mainmodule.presentation.viewstate.MainViewState
 
 @RunWith(MockitoJUnitRunner::class)
 class MainInteractorTest {
@@ -49,7 +51,13 @@ class MainInteractorTest {
     fun verifyForValidResponsesWeGetOneResult() {
         // given
         val id1 = 1
-        val comment1 = Comment("commentBody", "comment@email.com", id1, "commentName", 1)
+        val comment1 = Comment(
+            "commentBody",
+            "comment@email.com",
+            id1,
+            "commentName",
+            1
+        )
         val commentsList = listOf(comment1)
         val postBody = "postBody"
         val postTitle = "postTitle"
@@ -59,9 +67,23 @@ class MainInteractorTest {
         val address = mock<Address>()
         val company = mock<Company>()
         val userName = "name"
-        val user1 = User(address, company, "user@email.com", userId1, userName, "phone", "userName", "website")
+        val user1 = User(
+            address,
+            company,
+            "user@email.com",
+            userId1,
+            userName,
+            "phone",
+            "userName",
+            "website"
+        )
         val usersList = listOf(user1)
-        val expectedItem = PostItemModel(postTitle, postBody, userName, commentsList.size)
+        val expectedItem = PostItemModel(
+            postTitle,
+            postBody,
+            userName,
+            commentsList.size
+        )
         val expected = MainViewState.Data(listOf(expectedItem))
 
         // when
@@ -78,7 +100,13 @@ class MainInteractorTest {
     fun verifyForValidResponsesWeGetOneResultNoMatchingUser() {
         // given
         val id1 = 1
-        val comment1 = Comment("commentBody", "comment@email.com", id1, "commentName", 1)
+        val comment1 = Comment(
+            "commentBody",
+            "comment@email.com",
+            id1,
+            "commentName",
+            1
+        )
         val commentsList = listOf(comment1)
         val postBody = "postBody"
         val postTitle = "postTitle"
@@ -88,9 +116,23 @@ class MainInteractorTest {
         val address = mock<Address>()
         val company = mock<Company>()
         val userName = "name"
-        val user1 = User(address, company, "user@email.com", id1, userName, "phone", "userName", "website")
+        val user1 = User(
+            address,
+            company,
+            "user@email.com",
+            id1,
+            userName,
+            "phone",
+            "userName",
+            "website"
+        )
         val usersList = listOf(user1)
-        val expectedItem = PostItemModel(postTitle, postBody, "", commentsList.size)
+        val expectedItem = PostItemModel(
+            postTitle,
+            postBody,
+            "",
+            commentsList.size
+        )
         val expected = MainViewState.Data(listOf(expectedItem))
 
         // when
@@ -116,9 +158,19 @@ class MainInteractorTest {
         val address = mock<Address>()
         val company = mock<Company>()
         val userName = "name"
-        val user1 = User(address, company, "user@email.com", userId1, userName, "phone", "userName", "website")
+        val user1 = User(
+            address,
+            company,
+            "user@email.com",
+            userId1,
+            userName,
+            "phone",
+            "userName",
+            "website"
+        )
         val usersList = listOf(user1)
-        val expectedItem = PostItemModel(postTitle, postBody, userName, 0)
+        val expectedItem =
+            PostItemModel(postTitle, postBody, userName, 0)
         val expected = MainViewState.Data(listOf(expectedItem))
 
 

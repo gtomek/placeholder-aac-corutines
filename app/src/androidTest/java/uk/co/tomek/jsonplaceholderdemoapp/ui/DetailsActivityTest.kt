@@ -8,8 +8,9 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import uk.co.tomek.jsonplaceholderdemoapp.R
-import uk.co.tomek.jsonplaceholderdemoapp.ui.model.PostItemModel
+import uk.co.tomek.jsonplaceholderdemoapp.mainmodule.presentation.model.PostItemModel
 import com.zhuinden.espressohelper.*
+import uk.co.tomek.jsonplaceholderdemoapp.mainmodule.presentation.DetailsActivity
 
 @SmallTest
 @RunWith(AndroidJUnit4::class)
@@ -25,7 +26,12 @@ class DetailsActivityTest {
         val testBody = "Body"
         val testUser = "User"
         val testCount = 99
-        val testPost = PostItemModel(testTitle, testBody, testUser, testCount)
+        val testPost = PostItemModel(
+            testTitle,
+            testBody,
+            testUser,
+            testCount
+        )
         val launchIntent = Intent()
         launchIntent.putExtra(DetailsActivity.KEY_POST_DETAILS, testPost)
 

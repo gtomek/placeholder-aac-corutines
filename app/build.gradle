@@ -48,8 +48,6 @@ dependencies {
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.2'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.2'
 
-    // dependency injection, I'm trying here koin (service locator), but for larger project I would use Dagger2
-    // which I usually use
     implementation "org.koin:koin-core:1.0.2"
     implementation "org.koin:koin-core-ext:1.0.2"
     implementation "org.koin:koin-android:1.0.2"

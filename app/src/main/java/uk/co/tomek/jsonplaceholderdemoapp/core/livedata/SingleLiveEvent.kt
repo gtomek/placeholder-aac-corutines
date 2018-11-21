@@ -1,4 +1,4 @@
-package uk.co.tomek.jsonplaceholderdemoapp.core.other
+package uk.co.tomek.jsonplaceholderdemoapp.core.livedata
 
 /*
  *  Copyright 2017 Google Inc.

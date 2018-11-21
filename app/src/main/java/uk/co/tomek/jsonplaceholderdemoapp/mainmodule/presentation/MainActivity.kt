@@ -35,11 +35,11 @@ class MainActivity : AppCompatActivity() {
             adapter = resultsListAdapter
         }
 
-        mainViewModel.getLiveData().observe(this, Observer { viewState ->
+        mainViewModel.mainLiveData.observe(this, Observer { viewState ->
             viewState?.let { renderState(it) }
         })
 
-        mainViewModel.getViewActions().observe(this, Observer { action ->
+        mainViewModel.singleEvent.observe(this, Observer { action ->
             action?.let { actOnViewAction(it) }
         })
 

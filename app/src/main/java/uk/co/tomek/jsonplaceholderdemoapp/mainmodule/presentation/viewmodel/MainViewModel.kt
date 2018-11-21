@@ -6,9 +6,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import uk.co.tomek.jsonplaceholderdemoapp.core.livedata.SingleLiveEvent
 import uk.co.tomek.jsonplaceholderdemoapp.mainmodule.domain.Interactor
 import uk.co.tomek.jsonplaceholderdemoapp.mainmodule.presentation.model.PostItemModel
-import uk.co.tomek.jsonplaceholderdemoapp.core.other.SingleLiveEvent
 import uk.co.tomek.jsonplaceholderdemoapp.mainmodule.presentation.viewstate.MainViewSingleAction
 import uk.co.tomek.jsonplaceholderdemoapp.mainmodule.presentation.viewstate.MainViewState
 
@@ -17,13 +17,12 @@ import uk.co.tomek.jsonplaceholderdemoapp.mainmodule.presentation.viewstate.Main
  */
 class MainViewModel(private val mainInteractor: Interactor<MainViewState>) : ViewModel() {
 
-    private val mainLiveData = MutableLiveData<MainViewState>()
+    val mainLiveData = MutableLiveData<MainViewState>()
 
     // using it to open details screen
     // as recommended e.g. in
     // https://medium.com/androiddevelopers/livedata-with-snackbar-navigation-and-other-events-the-singleliveevent-case-ac2622673150
-    private val singleEvent : SingleLiveEvent<MainViewSingleAction> =
-        SingleLiveEvent()
+    val singleEvent = SingleLiveEvent<MainViewSingleAction>()
 
     private lateinit var job: Job
 
@@ -32,10 +31,6 @@ class MainViewModel(private val mainInteractor: Interactor<MainViewState>) : Vie
         mainLiveData.value = MainViewState.Loading
         fetchData()
     }
-
-    fun getLiveData() = mainLiveData
-
-    fun getViewActions() = singleEvent
 
     private fun fetchData() {
         job = CoroutineScope(Dispatchers.IO).launch {

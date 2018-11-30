@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/json-placeholder-android-app.iml" filepath="$PROJECT_DIR$/json-placeholder-android-app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/placeholder-aac-corutines.iml" filepath="$PROJECT_DIR$/placeholder-aac-corutines.iml" />
     </modules>
   </component>
 </project>

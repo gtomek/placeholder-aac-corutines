@@ -2,8 +2,6 @@ package uk.co.tomek.jsonplaceholderdemoapp.core
 
 import android.app.Application
 import android.os.StrictMode
-import com.squareup.leakcanary.AndroidExcludedRefs
-import com.squareup.leakcanary.LeakCanary
 import org.koin.android.ext.android.startKoin
 import timber.log.Timber
 import uk.co.tomek.jsonplaceholderdemoapp.BuildConfig
@@ -20,7 +18,6 @@ class PlaceholderApplication : Application() {
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
-            setupLeakCanary()
             enableStrictMode()
         }
 
@@ -42,16 +39,5 @@ class PlaceholderApplication : Application() {
             .penaltyLog()
             .penaltyDeath()
             .build())
-    }
-
-    private fun setupLeakCanary() {
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
-        LeakCanary.refWatcher(this)
-            .excludedRefs(AndroidExcludedRefs.createAppDefaults().build())
-            .buildAndInstall()
     }
 }

@@ -61,4 +61,4 @@ inline fun <reified T> creteNetService(httpClient: OkHttpClient, baseUrl: String
     return retrofit.create(T::class.java)
 }
 
-const val SERVER_URL = "http://jsonplaceholder.typicode.com"
+const val SERVER_URL = "https://jsonplaceholder.typicode.com"
